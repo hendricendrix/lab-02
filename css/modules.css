@@ -1,0 +1,14 @@
+img{
+  height: 400px;
+  border: 10px solid silver;
+}
+
+body {
+  color: #f7f1e3;
+  font-weight: 200;
+  font-size: 25px;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  background-color: #24006b;
+  text-align: center;
+}

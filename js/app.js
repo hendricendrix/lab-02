@@ -1,40 +1,44 @@
 'use strict';
 
-function Dog(dog) {
-  this.name = dog.name;
-  this.image_url = dog.image_url;
-  this.hobbies = dog.hobbies;
+function MyImagesObj(img) {
+  this.title = img.title;
+  this.image_url = img.image_url;
+  this.description = img.description;
+  this.keyword = img.keyword;
+  this.horns = img.horns;
 }
 
-Dog.allDogs = [];
+MyImagesObj.myImages =[];
 
-Dog.prototype.render = function() {
+
+MyImagesObj.prototype.render = function() {
   $('main').append('<div class="clone"></div>');
-  let dogClone = $('div[class="clone"]');
-
-  let dogHtml = $('#dog-template').html();
-
-  dogClone.html(dogHtml);
-
-  dogClone.find('h2').text(this.name);
-  dogClone.find('img').attr('src', this.image_url);
-  dogClone.find('p').text(this.hobbies);
-  dogClone.removeClass('clone');
-  dogClone.attr('class', this.name);
+  let imgClone = $('div[class="clone"]');
+  
+  let imgHtml = $('#photo-template').html();
+  
+  imgClone.html(imgHtml);
+  
+  imgClone.find('h2').text(this.title);
+  imgClone.find('img').attr('src', this.image_url);
+  imgClone.find('img').attr('alt', this.description);
+  imgClone.find('p').text(this.description);
+  imgClone.removeClass('clone');
+  imgClone.attr('class', this.title);
 };
 
-Dog.readJson = () => {
-  $.get('./data.json', 'json')
+MyImagesObj.readJson = () => {
+  $.get('data/page-1.json', 'json')
     .then(data => {
       data.forEach(item => {
-        Dog.allDogs.push(new Dog(item));
+        MyImagesObj.myImages.push(new MyImagesObj(item));
       });
     })
-    .then(Dog.loadDogs);
+    .then(MyImagesObj.loadimages);
 };
 
-Dog.loadDogs = () => {
-  Dog.allDogs.forEach(dog => dog.render());
+MyImagesObj.loadimages = () => {
+  MyImagesObj.myImages.forEach(img => img.render());
 };
-
-$(() => Dog.readJson());
+  
+$(() => MyImagesObj.readJson());
